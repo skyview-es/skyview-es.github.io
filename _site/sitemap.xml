@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>http://localhost:4000/docs/an%C3%A1lise/cenarios/</loc>
+<lastmod>2021-05-31T00:22:59+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/docs/desenvolvimento/arquitetura/</loc>
+<lastmod>2021-05-31T00:22:59+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/fonts/flaticon/font/flaticon.html</loc>
+<lastmod>2020-06-09T17:31:37+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/fonts/flaticon/license/license.pdf</loc>
+<lastmod>2020-06-09T17:31:37+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/fonts/icomoon/demo.html</loc>
+<lastmod>2020-06-09T17:31:37+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/</loc>
+<lastmod>2021-05-31T00:22:59+00:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/projeto/</loc>
+<lastmod>2021-05-30T21:37:56+00:00</lastmod>
+</url>
+</urlset>

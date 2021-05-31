@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Cenários | SkyView</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Cenários" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="O utilizador observa os voos que sobrevoam a Alemanha em tempo real e escolhe o modo de visualização dos voos que estão prestes a aterrar. Encontrado o voo que procura, clica sobre o mesmo e observa os gráficos relativos a este (velocidade, altitude), bem como a rota do avião." />
+<meta property="og:description" content="O utilizador observa os voos que sobrevoam a Alemanha em tempo real e escolhe o modo de visualização dos voos que estão prestes a aterrar. Encontrado o voo que procura, clica sobre o mesmo e observa os gráficos relativos a este (velocidade, altitude), bem como a rota do avião." />
+<link rel="canonical" href="http://localhost:4000/docs/an%C3%A1lise/cenarios/" />
+<meta property="og:url" content="http://localhost:4000/docs/an%C3%A1lise/cenarios/" />
+<meta property="og:site_name" content="SkyView" />
+<script type="application/ld+json">
+{"@type":"Article","headline":"Cenários","url":"http://localhost:4000/docs/an%C3%A1lise/cenarios/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"description":"O utilizador observa os voos que sobrevoam a Alemanha em tempo real e escolhe o modo de visualização dos voos que estão prestes a aterrar. Encontrado o voo que procura, clica sobre o mesmo e observa os gráficos relativos a este (velocidade, altitude), bem como a rota do avião.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="SkyView" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/" style="display:table;">
+					<span style="display:table-cell;vertical-align:middle;" class="back-arrow icon"><svg fill="#000000" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+  
+  
+<g class="currentLayer" style=""><title>Layer 1</title><path d="M0 0h24v24H0z" fill="none" id="svg_1"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" id="svg_2" class="selected" fill="#ffffff" fill-opacity="1"/></g></svg></span>
+					<img style="display:table-cell;" src="/images/favicon.png" width="40" height="40" alt="SkyView logo">
+				</a>
+				SkyView
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href=""><b>Documentação</b></a>
+					</li>
+				</ul>
+
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/an%C3%A1lise/cenarios/">Análise</a>
+							<ul>
+								
+									<li class="nav-item current"><a href="/docs/an%C3%A1lise/cenarios/">Cenários</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/desenvolvimento/arquitetura/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+
+				
+				
+				
+				
+				
+				
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Análise</h2>
+				<h3>Cenários</h3>
+			</div>
+			<article class="content">
+				<ol>
+  <li>
+    <p>O utilizador observa os voos que sobrevoam a Alemanha em tempo real e escolhe o modo de visualização dos voos que estão prestes a aterrar. Encontrado o voo que procura, clica sobre o mesmo e observa os gráficos relativos a este (velocidade, altitude), bem como a rota do avião.</p>
+  </li>
+  <li>
+    <p>O utilizador consulta estatísticas gerais sobre os voos já terminados, observando as rotas mais comuns na Alemanha e o número de aterragens efetuadas em cada aeroporto da mesma.</p>
+  </li>
+  <li>
+    <p>O utilizador observa os índices de poluição nos aeroportos da Alemanha em tempo real. Ao interagir com um aeroporto, o utilizador visualiza o histórico de aterragens nesse mesmo aeroporto, bem como um gráfico correlacionando o número de aterragens com o índice de poluição.</p>
+  </li>
+  <li>
+    <p>O utilizador é notificado da ocorrência de eventos como o aparecimento de um voo na Alemanha ou aterragem de um vôo.</p>
+  </li>
+</ol>
+
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>
