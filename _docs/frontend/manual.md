@@ -50,7 +50,7 @@ O primeiro item da lista, apresenta o nome do aeroporto em causa. Já o código 
 
 Na página denominada "Table", é possível visualizar uma tabela denominada "Incoming Airplanes". Esta tabela será preenchida pelos voos, com destino a um aeroporto alemão, prestes a aterrar.
 
-A tabela está então dividia em quatro colunas:
+A tabela está então dividida em quatro colunas:
 
 1. Icao24
 1. Avião - Callsign

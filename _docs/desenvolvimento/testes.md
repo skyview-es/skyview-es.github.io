@@ -1,10 +1,10 @@
 ---
 title: Testes
-category: Desenvolvimento
+category: Operações
 order: 3
-type: 2
+type: 4
 ---
 
-## Esquema de Estratégia de Testes - Milestone 3
+## Esquema de Estratégia de Testes
 
 ![Alt text](/images/posts/es_tests.png?raw=true "Title")

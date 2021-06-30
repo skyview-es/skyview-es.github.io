@@ -86,23 +86,9 @@
 								
 									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
 								
+									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
+								
 									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
-								
-									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
-								
-							</ul>
-						</li>
-					
-						<li class="nav-item top-level ">
-							
-							<a href="/docs/especificacao/jenkins/">Especificação</a>
-							<ul>
-								
-									<li class="nav-item "><a href="/docs/especificacao/jenkins/">Jenkins</a></li>
-								
-									<li class="nav-item "><a href="/docs/especificacao/deployment/">Deployment</a></li>
-								
-									<li class="nav-item "><a href="/docs/especificacao/monitoring/">Monitorização</a></li>
 								
 							</ul>
 						</li>
@@ -127,7 +113,28 @@
 				</ul>
 				
 				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/desenvolvimento/TICK/">Operações</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
 
+				
+				
 				
 				
 				
@@ -173,12 +180,46 @@
 					,
 					
 
+					"docs-desenvolvimento-tick": {
+						"id": "docs-desenvolvimento-tick",
+						"title": "Métricas",
+						"category": "",
+						"url": " /docs/desenvolvimento/TICK/",
+						"content": "Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização.\nA instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose.\n\n\n\nA recolha de métricas é efetuada periodicamente de cada um dos consumers desenvolvidos, através da integração nativa Quarkus Micrometer.\nDesta forma, são automaticamente incluídos diversos data points acerca do estado atual e desempenho da JVM, do módulo de integração com o Kafka (consumer e producer), e do módulo RESTEasy, bem como as métricas customizadas desenvolvidas pela equipa no próprio código fonte.\n\nEstas incluem contadores de número de pedidos REST recebidos, tamanho das listas de vôos/aeroportos recebidos dos tópicos Kafka, número de inserções no InfluxDB, número de eventos gerados, entre outros.\n\nA visualização do estado atual dos vários componentes do sistema at-a-glance é possibilitada por um dashboard Cronograf criado para o efeito, e que inclui um conjunto não exaustivo de métricas cruciais.\n\n\n\n\n  System CPU Usage\n  System Load Average\n  System Memory Usage\n  Events generated per 10 seconds (‘events’ kafka topic)\n  InfluxDB write operations executed per 10 seconds\n  Kafka messages consumed per 10 seconds\n  Kafka messages produced per 10 seconds\n  /stream SSE requests per 10 seconds\n  /all REST requests per 10 seconds\n  OpenWeather API response list size\n  OpenFlight API response list size"
+					}
+
+					
+				
+			
+		
+			
+				
+					,
+					
+
 					"docs-desenvolvimento-arquitetura": {
 						"id": "docs-desenvolvimento-arquitetura",
 						"title": "Arquitetura",
 						"category": "",
 						"url": " /docs/desenvolvimento/arquitetura/",
 						"content": ""
+					}
+
+					
+				
+			
+		
+			
+				
+					,
+					
+
+					"docs-desenvolvimento-consumers": {
+						"id": "docs-desenvolvimento-consumers",
+						"title": "Consumers",
+						"category": "",
+						"url": " /docs/desenvolvimento/consumers/",
+						"content": "Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:\n\n\n  Consumir dados provenientes dos tópicos Kafka populados pelos producers associados às APIs OpenSky e OpenWeather\n  Aplicar filtros, transformações, e outras operações aos mesmos\n  Ler e Escrever a informação relevante numa base de dados time-series InfluxDB (utilizando Flux)\n  Produzir dados processados e eventos para tópicos de Kafka\n  Servir atualizações em real-time para clientes de front-end através do uso de Server Sent Events (com interligação por Reactive Messaging)\n  Disponibilizar endpoints REST para obtenção de dados históricos em massa.\n\n\n\n\nFlights-Consumer\n\nA sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa ‘flights’ pelo producer correspondente.\n\nEstes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.\n\nAdicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao24’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.\n\nExemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao24 ‘34310d’):\n{\n  \"time\": 1625023000,\n  \"states\": [\n    {\n      \"icao24\": \"34310d\",\n      \"callsign\": \"BCS3844 \",\n      \"originCountry\": \"Spain\",\n      \"timePosition\": \"2021-06-30T04:16:39\",\n      \"lastContact\": 1625022999,\n      \"longitude\": 12.2542,\n      \"latitude\": 51.4113,\n      \"baroAltitude\": 0,\n      \"onGround\": true,\n      \"velocity\": 3.86,\n      \"trueTrack\": 84.38,\n      \"verticalRate\": 0,\n      \"sensors\": \"\",\n      \"geoAltitude\": 0,\n      \"squawk\": \"\",\n      \"spi\": false,\n      \"positionSource\": 0\n    },\n    {\n      ...\n    }\n  ]\n}\n\n\nArrivals-Consumer\n\nA sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa ‘arrivals’ pelo producer correspondente.\n\nEstes são enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.\n\nExemplo de payload JSON retornada pelo endpoint SSE /stream:\n{\n  \"voos\": [\n    {\n      \"icao24\": \"3cce6f\",\n      \"firstSeen\": 1560980170,\n      \"estDepartureAirport\": \"EDDS\",\n      \"lastSeen\": 1560981639,\n      \"estArrivalAirport\": \"Stuttgart\",\n      \"callsign\": \"FCK211  \",\n      \"estDepartureAirportHorizDistance\": 353,\n      \"estDepartureAirportVertDistance\": 7,\n      \"estArrivalAirportHorizDistance\": 1051,\n      \"estArrivalAirportVertDistance\": 7,\n      \"departureAirportCandidatesCount\": 0,\n      \"arrivalAirportCandidatesCount\": 7\n    },\n    {\n      ...\n    }\n  ]\n}\n\n\nEnvironment-Consumer\n\nA sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa ‘environment’ pelo producer correspondente.\n\nEstes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.\n\nAdicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.\n\nExemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao ‘34310d’):\n[\n  {\n    \"name\": \"Berlin-Schönefeld\",\n    \"icao\": \"EDDB\",\n    \"time\": {\n      \"seconds\": 1625025577,\n      \"nanos\": 55186000\n    },\n    \"latitude\": 52.3738,\n    \"longitude\": 13.519,\n    \"aqi\": 1,\n    \"co\": 211.95,\n    \"no\": 0.01,\n    \"no2\": 12.51,\n    \"o3\": 49.35,\n    \"so2\": 4.77,\n    \"pm10\": 5.2,\n    \"nh3\": 0.74\n  },\n  {\n    ... \n  }\n]\n\n\nArrived-Consumer\n\nA secção ‘Producers’ contém os detalhes sobre a função desempenhada por este componente."
 					}
 
 					
@@ -212,58 +253,7 @@
 						"title": "Testes",
 						"category": "",
 						"url": " /docs/desenvolvimento/testes/",
-						"content": "Esquema de Estratégia de Testes - Milestone 3"
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"docs-especificacao-deployment": {
-						"id": "docs-especificacao-deployment",
-						"title": "Deployment",
-						"category": "",
-						"url": " /docs/especificacao/deployment/",
-						"content": "Arquitetura geral\n\nO ambiente de execução e instalação integrado neste projeto assume um padrão de micro-serviços envolvidos em containers, com recurso à ferramenta Docker, e ainda necessita de suporte para a ferramenta opcional docker-compose, acedidas por modo não-privilegiado.\n\nA arquitetura é explicada pelo diagrama abaixo. A rede de containers para o efeito é denominada subnet-proj, e corresponde à gama de endereços 172.29.0.0/24. Todos os containers deste projeto situar-se-ão nesta rede Docker.\n\n\n\nÉ utilizado um ficheiro docker-compose.yaml por forma a realizar o setup completo de todos os serviços. A arquitetura de instalação providenciada explica o próprio modelo de instalação que segue entre módulos.\n\nOutros requisitos\n\nEm termos de requisitos especiais, a máquina remota deve estar configurada com o ficheiro-parâmetro de sistema Linux vm.max_map_count com o valor mínimo de 262144, devido a ser um requerimento do Elasticsearch na versão 7.13.x .\n\nLocalização\n\nDe notar que todos os serviços do projeto serão instalados na mesma máquina, incluindo bases de dados, brokers e ferramentas de monitorização, logging e visualização. Isto significa que, no âmbito deste projeto, não são utilizadas as máquinas virtuais fornecidas para instalação do produto e acesso aos recursos de dados (partilhados) para as dependências do software desenvolvido – isto deve-se ao facto de não ter sido possível fazer a instalação da playground VM disponibilizada para o efeito. Como esta ficou sem recursos disponíveis para todos os projetos rapidamente, o mesmo tipo de problema poderia ter acontecido com a runtime VM, então optou-se por um ambiente gerido pelo grupo, na qual estivesse acedido pela Web (skyview.rrosmaninho.com)."
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"docs-especificacao-jenkins": {
-						"id": "docs-especificacao-jenkins",
-						"title": "Jenkins",
-						"category": "",
-						"url": " /docs/especificacao/jenkins/",
-						"content": "Overview\n\nNo que toca a pipeline Jenkins disponibilizada, esta permite que o produto corrente seja sempre continuamente e automaticamente atualizado, e sequencialmente pronto a ser utilizado, garantindo que o software da versão estável mais recente esteja sempre disponível e funcional no ambiente de execução cliente. No que toca ao seu desenho geral, foi delineada uma pipeline standard, que segue o modelo geral build-test-package-deploy.\n\n\n\nA configuração completa da pipeline não é apenas contemplada no código: na configuração desta pipeline no ambiente Jenkins a trabalhar, deve ser introduzido para usar o Jenkinsfile disponibilizado, e ainda deve ser dado corretamente o repositório na qual se encontra este projeto, de forma de haver um checkout implícito ao SCM antes de operacionalizar o workflow dado. Para isto, de notar que também é necessário configurar credenciais para o acesso ao repositório SCM pretendido.\n\nFases da pipeline\n\nAs fases de execução da presente pipeline são as seguintes:\n\n\n  \n    Build Java 8 – Faz a assemblagem de cada módulo Java 8, utilizando o Maven. Os testes não podem ser executados nesta fase, pois serão realizados numa fase posterior. Devido a haver seis módulos independentes Java no nosso projeto, e sendo que era desejado que o código da pipeline fosse o mais curto possível e o mais programático possível (no caso da quantidade de módulos aumentasse no futuro, e assim ser mais rápido de integrar um novo módulo em todas o ciclo de vida da pipeline), usou-se uma script que passa por uma lista de nomes de diretórios presentes no projeto, com o código de cada módulo, na qual executa a diretiva “install” do Maven, com a propriedade “skipTests”.\n  \n  \n    Build Java 11 – Similarmente à fase anterior, é feito o build de cada módulo Java, neste caso com a versão 11. Embora faça parte do mesmo contexto do que seria normalmente uma fase, é necessária esta divisão devido à diretiva para utilização do Java 11 nesta fase. Esta maneira foi a mais fácil de ser integrada na pipeline.\n  \n  \n    Test Java 8 – Esta fase trata de executar todos os testes de integração ou unitários em todos os módulos Java do software. Também é executado de forma programática e sequencial para cada aplicação Java 8, portanto detém o mesmo fluxo é feito para as fases anteriores. A diretiva de lifecycle Maven é a utilizada para utilizar todos os testes, que é o “test”.\n  \n  Test Java 11 – Com semelhanças às fases de build explicitadas anteriormente, este usa também a diretiva “tools” com a configuração da versão de SDK para Java 11. Esta fase, tal como a anterior, faz sequencialmente os testes aos módulos Java dos diretórios dos micro-serviços Java 11, incluídos em cada um destes (./src/test/*).\n    tools {\n  jdk \"jdk11\"\n}\n    \n  \n  \n    Upload artifacts – Após as fases lógicas de build e teste, esta fase assegura que os artefactos resultantes da assemblagem dos pacotes de software (JAR/WAR) da versão correspondente, seja armazenado num repositório de artefactos JFrog. Neste caso, o repositório é o oficial da disciplina, em http://192.168.160.49:8081/artifactory/maven_es2021. Isto é configurado no pom.xml e no settings.xml, e é usado apenas para o upload destes artefactos. Esta fase é transparente à versão do Java utilizada.\n  \n  \n    Push images – Esta fase realiza o build das imagens Docker e, consequentemente, o upload das imagens resultantes para o Docker Registry, que vai ser utilizado pela máquina de instalação do produto como a fonte de imagens no docker-compose de instalação. Neste caso, o repositório utilizado é, também, o oficial, localizado em http://192.168.160.48:5000. Esta fase faz o build a partir dos Dockerfiles localizados em cada módulo, e upload sequencial (push) para cada módulo do projeto. A fase inclui todos os componentes, incluindo a aplicação Node/ReactJS.\n  \n  Deploy – Esta fase acede à máquina de instalação para a entrega do pacote de software, mediante credenciais. Nesta versão final do projeto, a instalação de todos os serviços é feita numa máquina gerida pelo grupo, acedida em skyview.rrosmaninho.com, no porto 443, usando credenciais configuradas com um utilizador dependente (‘jenkins’) para o efeito. \nEsta fase acede primeiramente à máquina e limpa a instalação anterior, removendo todos os seus componentes. De seguida, remove ficheiros dependentes, como o manisfest YAML de instalação automática dos variados serviços (docker-compose.yml), assim como ficheiros de configuração de alguns serviços, necessários para o seu correto funcionamento. Depois, são novamente copiados para a mesma máquina o manifest e os ficheiros de configuração atualizados. Por fim, faz a execução do YAML sobre o Docker daemon (a partir do docker-compose up).\n\n\nAlterações posteriores\n\nNo caso de a máquina remota poder ser diferente ou na eventualidade da sua migração para outra localização, a definições dos campos da variável global “remote” devem ser atualizados: o “host” e o “port”. O campo “name” também pode ser mudado, no entanto não é fundamental para o funcionamento dos acessos SSH, servindo apenas para fazer a identificação posterior.\n\nEsta máquina destino para a instalação e entrega do produto deve ter um Docker deamon preparado com execução de comandos em modo non-root. Quaisquer certificados essenciais para o acesso ao Docker Registry devem ser instalados na máquina (certificados cliente em /etc/docker/certs; no caso de haver um certificado de CA Root independente, é ainda necessário instalá-lo no seu sistema Linux; no entanto, se for um ficheiro em formato PEM com a cadeia de certificação, é apenas necessário coloca-lo no diretório dito primeiramente).\n\nNo caso de possuir um registry Docker privado, é possível mudá-lo facilmente no código da pipeline, sendo que pode ser alterado na variável de ambiente REGISTRYHOST existente. Assim, o push e pull das imagens Docker na fase de Upload images poderá ser feito de outro Registry facilmente que não o por defeito neste projeto. É necessário, no entanto, que este esteja acessível tanto da máquina target, como na ferramenta Jenkins que vai ser utilizada."
-					}
-
-					
-				
-			
-		
-			
-				
-					,
-					
-
-					"docs-especificacao-monitoring": {
-						"id": "docs-especificacao-monitoring",
-						"title": "Monitorização",
-						"category": "",
-						"url": " /docs/especificacao/monitoring/",
-						"content": "Métricas\n\nLogger agregado\n\nOverview\n\nA monitorização centralizada aos registos de logging gerados pelas aplicações é feita a partir da instalação e configuração de uma stack EFK (Elasticsearch, Fluentd, Kibana). Embora o Logstash seja o agregador de registos de logging mais utilizado, este modelo tem a particularidade de utilizar o Fluentd na sua vez, sendo que a sua configuração de cada fonte de dados é mais direta, e o formato de configuração é mais visualizável dentro do ficheiro.\n\nA monitorização de logging é necessária para se observar simultaneamente um número elevado de aplicações Java, que estão constantemente a produzir logs a um rácio significativo, por exemplo, significando que poderá existir ali um problema com o micro-serviço, como um número muito elevado de exceções runtime no código Java, o que pode revelar um problema com o código ou de comunicação entre os vários serviços que este depende. Mais ainda, a visualização de logs a partir de um ponto central permite maior reação à ocorrência de problema, sendo que os logs de vários serviços podem ser visualizados ao mesmo tempo, ou com filtros a partir de botões na interface da dashboard. O armazenamento destes registos permite a recolha de informação histórica do funcionamento da aplicação, necessária para, por exemplo, auditorias.\n\nStack\n\nA stack é fornecida dentro do pacote de software do projeto, a partir da instalação docker-compose. Estes componentes ligam-se naturalmente entre si, não precisando de grandes configurações, sendo que estão dentro de containers e as configurações mínimas já estão garantidas.\n\n\n\nO modelo de agregação de logs ilustra que os vários componentes de software Java enviam os seus logs para o agregador Fluentd no formato Syslog, que expõe um porto e recebe os vários registos sob a forma de mensagens, enviando depois estes registos recebidos para o serviço Elasticsearch. Esta abordagem é muito simples de implementar, no entanto pode sofrer de bottleneck em termos de performance e prontidão do envio das mensagens para o Elasticsearch em “tempo real”, pois com a escalabilidade do número de serviços existentes a monitorizar, poderá fazer com que um container de Fluentd não seja suficiente para o efeito; assim como poderá resultar em perda de registos de logging, devido ao protocolo UDP que é utilizado na transmissão de logs entre as aplicações e o agregador.\n\nIntegração ao software\n\nAs aplicações Quarkus são configuradas para enviar os seus logs a partir da configuração de parâmetros nos ficheiros “application.properties” correspondentes. A integração com a stack EFK com Quarkus é, então, trivial, superiorizando-se a aplicações com base em Spring Boot, que requerem a criação de appenders.\n\n\n\nVisualização de logs\n\nA ferramenta de visualização escolhida é o Kibana, pois está naturalmente integrada como parte da stack de logs centralizados, sendo que a visualização de logs e suas estatísticas base são facilmente criadas em painéis, e consequentemente dashboards.\n\nA dashboard de visualização realizada serve para ter o mínimo de informação prontamente disponível que se achou útil: em primeiro, uma tabela que mostra todos os registos de todos os logs da infraestrtura mediante o intervalo de tempo filtrado, que inclui, para além da mensagem os campos do nome dos serviços (ou seja, das aplicações) e o timestamp da sua ocorrência; depois, existe ainda um gráfico de barras da contagem de logs totais, nas últimas doze horas. Por fim, existe um painel de visualização de proporção de logs de cada aplicação a partir do tamanho da letra (quanto maior a letra em relação aos outros nomes, mais logs está a produzir comparativamente).\n\nEstes painéis, combinado com os filtros que estão integrados nas páginas das dashboards, permite rapidamente flitrar por aplicação ou aplicações, limitar intervalos de tempo para visualização, entre outros. Assim, a monitorização de logging atinge o nível de controlo desejado."
+						"content": "Esquema de Estratégia de Testes"
 					}
 
 					
