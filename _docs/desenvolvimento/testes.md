@@ -1,8 +1,8 @@
 ---
 title: Testes
-category: Desenvolvimento
+category: Operações
 order: 3
-type: 2
+type: 4
 ---
 
 ## Esquema de Estratégia de Testes

@@ -86,9 +86,9 @@
 								
 									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
 								
-									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+									<li class="nav-item current"><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
 								
-									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
 								
 							</ul>
 						</li>
@@ -99,18 +99,6 @@
 				
 				<ul>
 					
-					
-						<li class="nav-item top-level current">
-							
-							<a href="/docs/desenvolvimento/TICK/">Desenvolvimento</a>
-							<ul>
-								
-									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
-								
-									<li class="nav-item current"><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
-								
-							</ul>
-						</li>
 					
 						<li class="nav-item top-level ">
 							
@@ -125,7 +113,28 @@
 				</ul>
 				
 				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/desenvolvimento/TICK/">Operações</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
 
+				
+				
 				
 				
 				
@@ -158,9 +167,11 @@
 
 <h3 id="flights-consumer">Flights-Consumer</h3>
 
-<p>A sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa ‘flights’ pelo producer correspondente.
-Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
-Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao24’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.</p>
+<p>A sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa ‘flights’ pelo producer correspondente.</p>
+
+<p>Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.</p>
+
+<p>Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao24’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.</p>
 
 <p>Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao24 ‘34310d’):</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
@@ -194,8 +205,9 @@ Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /a
 
 <h3 id="arrivals-consumer">Arrivals-Consumer</h3>
 
-<p>A sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa ‘arrivals’ pelo producer correspondente.
-Estes enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados</p>
+<p>A sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa ‘arrivals’ pelo producer correspondente.</p>
+
+<p>Estes são enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.</p>
 
 <p>Exemplo de payload JSON retornada pelo endpoint SSE /stream:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
@@ -223,9 +235,11 @@ Estes enviados como Server Sent Events para o frontend e quaisquer outros client
 
 <h3 id="environment-consumer">Environment-Consumer</h3>
 
-<p>A sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa ‘environment’ pelo producer correspondente.
-Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
-Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.</p>
+<p>A sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa ‘environment’ pelo producer correspondente.</p>
+
+<p>Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.</p>
+
+<p>Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.</p>
 
 <p>Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao ‘34310d’):</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[

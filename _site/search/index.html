@@ -86,9 +86,9 @@
 								
 									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
 								
-									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
 								
-									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
 								
 							</ul>
 						</li>
@@ -99,18 +99,6 @@
 				
 				<ul>
 					
-					
-						<li class="nav-item top-level ">
-							
-							<a href="/docs/desenvolvimento/TICK/">Desenvolvimento</a>
-							<ul>
-								
-									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
-								
-									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
-								
-							</ul>
-						</li>
 					
 						<li class="nav-item top-level ">
 							
@@ -125,7 +113,28 @@
 				</ul>
 				
 				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/desenvolvimento/TICK/">Operações</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
 
+				
+				
 				
 				
 				
@@ -176,7 +185,7 @@
 						"title": "Métricas",
 						"category": "",
 						"url": " /docs/desenvolvimento/TICK/",
-						"content": "Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização.\nA instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose.\n\n\n\nA recolha de métricas é efetuada periódicamente de cada um dos consumers desenvolvidos, através da integração nativa Quarkus Micrometer.\nDesta forma, são automaticamente incluídos diversos data points acerca do estado atual e desempenho da JVM, do módulo de integração com o Kafka (consumer e producer), e do módulo RESTEasy, bem como as métricas customizadas desenvolvidas pela equipa no próprio código fonte.\n\nEstas incluem contadores de número de pedidos REST recebidos, tamanho das listas de vôos/aeroportos recebidos dos tópicos Kafka, número de inserções no InfluxDB, número de eventos gerados, entre outros.\n\nA visualização do estado atual dos vários componentes do sistema at-a-glance é possibilitada por um dashboard Cronograf criado para o efeito, e que inclui um conjunto não exaustivo de métricas cruciais.\n\n\n\n\n  System CPU Usage\n  System Load Average\n  System Memory Usage\n  Events generated per 10 seconds (‘events’ kafka topic)\n  InfluxDB write operations executed per 10 seconds\n  Kafka messages consumed per 10 seconds\n  Kafka messages produced per 10 seconds\n  /stream SSE requests per 10 seconds\n  /all REST requests per 10 seconds\n  OpenWeather API response list size\n  OpenFlight API response list size"
+						"content": "Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização.\nA instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose.\n\n\n\nA recolha de métricas é efetuada periodicamente de cada um dos consumers desenvolvidos, através da integração nativa Quarkus Micrometer.\nDesta forma, são automaticamente incluídos diversos data points acerca do estado atual e desempenho da JVM, do módulo de integração com o Kafka (consumer e producer), e do módulo RESTEasy, bem como as métricas customizadas desenvolvidas pela equipa no próprio código fonte.\n\nEstas incluem contadores de número de pedidos REST recebidos, tamanho das listas de vôos/aeroportos recebidos dos tópicos Kafka, número de inserções no InfluxDB, número de eventos gerados, entre outros.\n\nA visualização do estado atual dos vários componentes do sistema at-a-glance é possibilitada por um dashboard Cronograf criado para o efeito, e que inclui um conjunto não exaustivo de métricas cruciais.\n\n\n\n\n  System CPU Usage\n  System Load Average\n  System Memory Usage\n  Events generated per 10 seconds (‘events’ kafka topic)\n  InfluxDB write operations executed per 10 seconds\n  Kafka messages consumed per 10 seconds\n  Kafka messages produced per 10 seconds\n  /stream SSE requests per 10 seconds\n  /all REST requests per 10 seconds\n  OpenWeather API response list size\n  OpenFlight API response list size"
 					}
 
 					
@@ -210,7 +219,7 @@
 						"title": "Consumers",
 						"category": "",
 						"url": " /docs/desenvolvimento/consumers/",
-						"content": "Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:\n\n\n  Consumir dados provenientes dos tópicos Kafka populados pelos producers associados às APIs OpenSky e OpenWeather\n  Aplicar filtros, transformações, e outras operações aos mesmos\n  Ler e Escrever a informação relevante numa base de dados time-series InfluxDB (utilizando Flux)\n  Produzir dados processados e eventos para tópicos de Kafka\n  Servir atualizações em real-time para clientes de front-end através do uso de Server Sent Events (com interligação por Reactive Messaging)\n  Disponibilizar endpoints REST para obtenção de dados históricos em massa.\n\n\n\n\nFlights-Consumer\n\nA sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa ‘flights’ pelo producer correspondente.\nEstes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados\nAdicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao24’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.\n\nExemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao24 ‘34310d’):\n{\n  \"time\": 1625023000,\n  \"states\": [\n    {\n      \"icao24\": \"34310d\",\n      \"callsign\": \"BCS3844 \",\n      \"originCountry\": \"Spain\",\n      \"timePosition\": \"2021-06-30T04:16:39\",\n      \"lastContact\": 1625022999,\n      \"longitude\": 12.2542,\n      \"latitude\": 51.4113,\n      \"baroAltitude\": 0,\n      \"onGround\": true,\n      \"velocity\": 3.86,\n      \"trueTrack\": 84.38,\n      \"verticalRate\": 0,\n      \"sensors\": \"\",\n      \"geoAltitude\": 0,\n      \"squawk\": \"\",\n      \"spi\": false,\n      \"positionSource\": 0\n    },\n    {\n      ...\n    }\n  ]\n}\n\n\nArrivals-Consumer\n\nA sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa ‘arrivals’ pelo producer correspondente.\nEstes enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados\n\nExemplo de payload JSON retornada pelo endpoint SSE /stream:\n{\n  \"voos\": [\n    {\n      \"icao24\": \"3cce6f\",\n      \"firstSeen\": 1560980170,\n      \"estDepartureAirport\": \"EDDS\",\n      \"lastSeen\": 1560981639,\n      \"estArrivalAirport\": \"Stuttgart\",\n      \"callsign\": \"FCK211  \",\n      \"estDepartureAirportHorizDistance\": 353,\n      \"estDepartureAirportVertDistance\": 7,\n      \"estArrivalAirportHorizDistance\": 1051,\n      \"estArrivalAirportVertDistance\": 7,\n      \"departureAirportCandidatesCount\": 0,\n      \"arrivalAirportCandidatesCount\": 7\n    },\n    {\n      ...\n    }\n  ]\n}\n\n\nEnvironment-Consumer\n\nA sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa ‘environment’ pelo producer correspondente.\nEstes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados\nAdicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.\n\nExemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao ‘34310d’):\n[\n  {\n    \"name\": \"Berlin-Schönefeld\",\n    \"icao\": \"EDDB\",\n    \"time\": {\n      \"seconds\": 1625025577,\n      \"nanos\": 55186000\n    },\n    \"latitude\": 52.3738,\n    \"longitude\": 13.519,\n    \"aqi\": 1,\n    \"co\": 211.95,\n    \"no\": 0.01,\n    \"no2\": 12.51,\n    \"o3\": 49.35,\n    \"so2\": 4.77,\n    \"pm10\": 5.2,\n    \"nh3\": 0.74\n  },\n  {\n    ... \n  }\n]\n\n\nArrived-Consumer\n\nA secção ‘Producers’ contém os detalhes sobre a função desempenhada por este componente."
+						"content": "Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:\n\n\n  Consumir dados provenientes dos tópicos Kafka populados pelos producers associados às APIs OpenSky e OpenWeather\n  Aplicar filtros, transformações, e outras operações aos mesmos\n  Ler e Escrever a informação relevante numa base de dados time-series InfluxDB (utilizando Flux)\n  Produzir dados processados e eventos para tópicos de Kafka\n  Servir atualizações em real-time para clientes de front-end através do uso de Server Sent Events (com interligação por Reactive Messaging)\n  Disponibilizar endpoints REST para obtenção de dados históricos em massa.\n\n\n\n\nFlights-Consumer\n\nA sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa ‘flights’ pelo producer correspondente.\n\nEstes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.\n\nAdicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao24’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.\n\nExemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao24 ‘34310d’):\n{\n  \"time\": 1625023000,\n  \"states\": [\n    {\n      \"icao24\": \"34310d\",\n      \"callsign\": \"BCS3844 \",\n      \"originCountry\": \"Spain\",\n      \"timePosition\": \"2021-06-30T04:16:39\",\n      \"lastContact\": 1625022999,\n      \"longitude\": 12.2542,\n      \"latitude\": 51.4113,\n      \"baroAltitude\": 0,\n      \"onGround\": true,\n      \"velocity\": 3.86,\n      \"trueTrack\": 84.38,\n      \"verticalRate\": 0,\n      \"sensors\": \"\",\n      \"geoAltitude\": 0,\n      \"squawk\": \"\",\n      \"spi\": false,\n      \"positionSource\": 0\n    },\n    {\n      ...\n    }\n  ]\n}\n\n\nArrivals-Consumer\n\nA sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa ‘arrivals’ pelo producer correspondente.\n\nEstes são enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.\n\nExemplo de payload JSON retornada pelo endpoint SSE /stream:\n{\n  \"voos\": [\n    {\n      \"icao24\": \"3cce6f\",\n      \"firstSeen\": 1560980170,\n      \"estDepartureAirport\": \"EDDS\",\n      \"lastSeen\": 1560981639,\n      \"estArrivalAirport\": \"Stuttgart\",\n      \"callsign\": \"FCK211  \",\n      \"estDepartureAirportHorizDistance\": 353,\n      \"estDepartureAirportVertDistance\": 7,\n      \"estArrivalAirportHorizDistance\": 1051,\n      \"estArrivalAirportVertDistance\": 7,\n      \"departureAirportCandidatesCount\": 0,\n      \"arrivalAirportCandidatesCount\": 7\n    },\n    {\n      ...\n    }\n  ]\n}\n\n\nEnvironment-Consumer\n\nA sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa ‘environment’ pelo producer correspondente.\n\nEstes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.\n\nAdicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.\n\nExemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao ‘34310d’):\n[\n  {\n    \"name\": \"Berlin-Schönefeld\",\n    \"icao\": \"EDDB\",\n    \"time\": {\n      \"seconds\": 1625025577,\n      \"nanos\": 55186000\n    },\n    \"latitude\": 52.3738,\n    \"longitude\": 13.519,\n    \"aqi\": 1,\n    \"co\": 211.95,\n    \"no\": 0.01,\n    \"no2\": 12.51,\n    \"o3\": 49.35,\n    \"so2\": 4.77,\n    \"pm10\": 5.2,\n    \"nh3\": 0.74\n  },\n  {\n    ... \n  }\n]\n\n\nArrived-Consumer\n\nA secção ‘Producers’ contém os detalhes sobre a função desempenhada por este componente."
 					}
 
 					

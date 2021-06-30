@@ -79,16 +79,16 @@
 				<ul>
 					
 					
-						<li class="nav-item top-level current">
+						<li class="nav-item top-level ">
 							
 							<a href="/docs/desenvolvimento/arquitetura/">Desenvolvimento</a>
 							<ul>
 								
 									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
 								
-									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
 								
-									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
 								
 							</ul>
 						</li>
@@ -99,18 +99,6 @@
 				
 				<ul>
 					
-					
-						<li class="nav-item top-level current">
-							
-							<a href="/docs/desenvolvimento/TICK/">Desenvolvimento</a>
-							<ul>
-								
-									<li class="nav-item current"><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
-								
-									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
-								
-							</ul>
-						</li>
 					
 						<li class="nav-item top-level ">
 							
@@ -125,7 +113,28 @@
 				</ul>
 				
 				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/TICK/">Operações</a>
+							<ul>
+								
+									<li class="nav-item current"><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
 
+				
+				
 				
 				
 				
@@ -139,7 +148,7 @@
 
 		<section class="main">
 			<div class="page-header">
-				<h2>Desenvolvimento</h2>
+				<h2>Operações</h2>
 				<h3>Métricas</h3>
 			</div>
 			<article class="content">
@@ -148,7 +157,7 @@ A instanciação e interligação dos seus componentes constituintes (Telegraf, 
 
 <p><img src="https://lh5.googleusercontent.com/FcW4kuGJcVRBmOFPyBmaIsLypBkmh2UAcqRTFp0IwNfj1nlHotmClBMoQPyge8ZvL-YGaHnlXxr6d_b64DHdOkHGaXvx4pLPAGIg14HGgYaSb-rV_1PgO6x63LRRGzdC3w" alt="Alt text" title="Title" /></p>
 
-<p>A recolha de métricas é efetuada periódicamente de cada um dos consumers desenvolvidos, através da integração nativa Quarkus Micrometer.
+<p>A recolha de métricas é efetuada periodicamente de cada um dos consumers desenvolvidos, através da integração nativa Quarkus Micrometer.
 Desta forma, são automaticamente incluídos diversos data points acerca do estado atual e desempenho da JVM, do módulo de integração com o Kafka (consumer e producer), e do módulo RESTEasy, bem como as métricas customizadas desenvolvidas pela equipa no próprio código fonte.</p>
 
 <p>Estas incluem contadores de número de pedidos REST recebidos, tamanho das listas de vôos/aeroportos recebidos dos tópicos Kafka, número de inserções no InfluxDB, número de eventos gerados, entre outros.</p>

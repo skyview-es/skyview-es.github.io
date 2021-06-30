@@ -2,7 +2,7 @@
 title: Consumers
 category: Desenvolvimento
 order: 2
-type: 3
+type: 2
 ---
 
 Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:
@@ -14,13 +14,17 @@ Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, 
 - Servir atualizações em real-time para clientes de front-end através do uso de Server Sent Events (com interligação por Reactive Messaging)
 - Disponibilizar endpoints REST para obtenção de dados históricos em massa.
 
+
 ![Alt text](/images/posts/es_consumers.png?raw=true "Title")
 
 ### Flights-Consumer
 
 A sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa 'flights' pelo producer correspondente.
-Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
+
+Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.
+
 Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter 'icao24' como filtro e interage com o InfluxDB utilizando Flux para obter os dados. 
+
 
 Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao24 '34310d'):
 ```
@@ -56,7 +60,9 @@ Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso
 ### Arrivals-Consumer
 
 A sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa 'arrivals' pelo producer correspondente.
-Estes enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
+
+Estes são enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.
+
 
 Exemplo de payload JSON retornada pelo endpoint SSE /stream:
 ```
@@ -86,8 +92,11 @@ Exemplo de payload JSON retornada pelo endpoint SSE /stream:
 ### Environment-Consumer
 
 A sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa 'environment' pelo producer correspondente.
-Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
+
+Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados.
+
 Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter 'icao' como filtro e interage com o InfluxDB utilizando Flux para obter os dados. 
+
 
 Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao '34310d'):
 ```
