@@ -1,8 +1,8 @@
 ---
 title: Arquitetura
 category: Desenvolvimento
-order: 2
-type: 3
+order: 1
+type: 2
 ---
 
 
