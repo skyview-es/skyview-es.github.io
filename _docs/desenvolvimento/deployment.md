@@ -2,7 +2,7 @@
 title: Deployment
 category: Operações
 order: 2
-type: 2
+type: 4
 published: true
 ---
 
