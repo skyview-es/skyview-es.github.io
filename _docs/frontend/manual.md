@@ -30,7 +30,7 @@ São estes os gráficos de velocidade (m/s) e de altitude (metros). Tal como o n
 
 ### Environment's Map
 
-Se o utilizador clicar com o botão esquerdo do rato sobre o *switch*, este alterará o modo em exibição para a vista do ambiente. Esta mudança será acompanhada por uma troca de cor no *switch* de azul para um tom esverdiado. Os ícones representativos de cada voo serão removidos, dando lugar a outro conjunto de símbolos representando os aeroportos alemães.
+Se o utilizador clicar com o botão esquerdo do rato sobre o *switch*, este alterará o modo em exibição para a vista do ambiente. Esta mudança será acompanhada por uma troca de cor no *switch* de azul para um tom esverdeado. Os ícones representativos de cada voo serão removidos, dando lugar a outro conjunto de símbolos representando os aeroportos alemães.
 
 <img src="/images/frontend/environmentsmap.png" alt="Environments Map" width="750" height="500">{: .center-image}
 *Exemplo do mapa no modo "Environment's Map.*
@@ -48,13 +48,16 @@ O primeiro item da lista, apresenta o nome do aeroporto em causa. Já o código 
 
 ## Table
 
-Na página denominada "Table", é possível visualizar uma tabela denominada "Incoming Airplanes". Esta tabela será então preenchida pelos voos, com destino a um aeroporto alemão, prestes a aterrar.
-<img src="/images/frontend/worldmap.png" alt="Mapa-Múndi" width="750" height="500">{: .center-image}
-*Exemplo da página Maps na plataforma.*
+Na página denominada "Table", é possível visualizar uma tabela denominada "Incoming Airplanes". Esta tabela será preenchida pelos voos, com destino a um aeroporto alemão, prestes a aterrar.
 
-### Flights' Map
+A tabela está então dividia em quatro colunas:
 
-Por omissão, o modo exibido será o dos voos, com o interruptor a ser preenchido por um tom de azul. Neste, o cliente pode acompanhar os aviões que sobrevoam a Alemanha em tempo real, com um pequeno ícone de um avião azulado a simbolizar cada voo. Ao longo do tempo, o ícone deslocar-se-á sobre o território alemão, replicando assim a trajetória do voo enquanto este estiver sobre o país.
+1. Icao24
+1. Avião - Callsign
+1. Aeroporto de chegada
+1. Distância
 
-<img src="/images/frontend/flightsmap.png" alt="Flights Map" width="750" height="500">{: .center-image}
-*Exemplo do mapa no modo "Flights' Map.*
+Tal como referido na secção [Flight's Map](#flights-map), o código ICAO 24 representa o avião em si, sendo que o *Callsign* é também um identificador único, cujo prefixo corresponde ao seu país de origem. Os últimos dois campos são, tal como indicam, o nome do aeroporto alemão em que o avião está prestes a aterrar e a distância a que se encontra do mesmo.
+
+<img src="/images/frontend/table.png" alt="Tabela" width="750" height="500">{: .center-image}
+*Exemplo da página Table na plataforma.*
