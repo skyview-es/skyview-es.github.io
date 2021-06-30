@@ -1,6 +1,6 @@
 ---
 title: Jenkins
-category: Especificação
+category: Operações
 order: 1
 type: 2
 published: true
