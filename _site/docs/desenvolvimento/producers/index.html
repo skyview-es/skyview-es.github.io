@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Producers | SkyView</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Producers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Flights Producer" />
+<meta property="og:description" content="Flights Producer" />
+<link rel="canonical" href="http://localhost:4000/docs/desenvolvimento/producers/" />
+<meta property="og:url" content="http://localhost:4000/docs/desenvolvimento/producers/" />
+<meta property="og:site_name" content="SkyView" />
+<script type="application/ld+json">
+{"@type":"Article","url":"http://localhost:4000/docs/desenvolvimento/producers/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"headline":"Producers","description":"Flights Producer","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="SkyView" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/" style="display:table;">
+					<span style="display:table-cell;vertical-align:middle;" class="back-arrow icon"><svg fill="#000000" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+  
+  
+<g class="currentLayer" style=""><title>Layer 1</title><path d="M0 0h24v24H0z" fill="none" id="svg_1"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" id="svg_2" class="selected" fill="#ffffff" fill-opacity="1"/></g></svg></span>
+					<img style="display:table-cell;" src="/images/favicon.png" width="40" height="40" alt="SkyView logo">
+				</a>
+				SkyView
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href=""><b>Documentação</b></a>
+					</li>
+				</ul>
+
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/an%C3%A1lise/cenarios/">Análise</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/an%C3%A1lise/cenarios/">Cenários</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/arquitetura/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/TICK/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
+								
+									<li class="nav-item current"><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/frontend/manual/">Frontend</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/frontend/manual/">Manual do Utilizador</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+
+				
+				
+				
+				
+				
+				
+				
+				
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Desenvolvimento</h2>
+				<h3>Producers</h3>
+			</div>
+			<article class="content">
+				<h2 id="flights-producer">Flights Producer</h2>
+
+<p>Flights-producer foi feito com <em>SpringBoot</em> e utiliza a API OpenSky, fazendo duas calls distintas e produzindo informação para dois topics diferentes: <em>flights</em> e <em>arrivals</em>.</p>
+
+<h3 id="flights"><em>flights</em></h3>
+<p>Para o preenchimento do topic <em>flights</em> é sempre feita a seguinte chamada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://opensky-network.org/api/states/all?lamin=47.2&amp;lomin=5.5&amp;lamax=55.1&amp;lomax=15.5
+</code></pre></div></div>
+
+<p>O resultado tem todos os voos cuja latitude e longitude estão delimitados pelos limites da Alemanha, obtendo assim todos os voos que estão atualmente a sobrevoar a área definida. Este resultado é guardado na classe <em>FlightsState</em>.</p>
+
+<p>A mensagem é enviada para o topic em formato <em>json</em> através do método <em>gson.toJson()</em>.</p>
+
+<p>Exemplo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "time": 1625017570,
+  "states": [
+    [
+      "4bc847",
+      "PGT33P  ",
+      "Turkey",
+      1625017569,
+      1625017570,
+      11.2141,
+      49.8804,
+      10675.62,
+      false,
+      212.37,
+      117.25,
+      0,
+      null,
+      10949.94,
+      "6426",
+      false,
+      0
+    ],
+    ...
+}
+</code></pre></div></div>
+
+<h3 id="arrivals"><em>arrivals</em></h3>
+<p>Para o preenchimento do topic <em>arrivals</em> é sempre feita a seguinte chamada (com begin e end sendo limites temporais em <em>epoch</em>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"https://opensky-network.org/api/flights/all?begin="+begin+"&amp;end="+end
+</code></pre></div></div>
+
+<p>O resultado tem a lista de todos os voos que estão/estavam ativos (no ar) no limite de tempo definido. Este resultado é guardado na classe <em>Flights</em> e depois filtrado para apenas sobrar os voos cujo parametro <em>estArrivalAirport</em> tenha um código <em>ICAO</em> de um aeroporto alemão. Este parametro é depois alterado para o nome do aeroporto através de um dicionário que relaciona os valores <em>ICAO</em> com os nomes reais.</p>
+
+<p>A mensagem é depois enviada para o topic em formato <em>json</em> através do método <em>gson.toJson()</em>.</p>
+
+<p>Exemplo:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  {
+    "icao24": "48548c",
+    "firstSeen": 1558953893,
+    "estDepartureAirport": "EHAM",
+    "lastSeen": 1558957226,
+    "estArrivalAirport": "Stuttgart",
+    "callsign": "KLM1873",
+    "estDepartureAirportHorizDistance": 1217,
+    "estDepartureAirportVertDistance": 94,
+    "estArrivalAirportHorizDistance": 1086.0,
+    "estArrivalAirportVertDistance": 14.0,
+    "departureAirportCandidatesCount": 0,
+    "arrivalAirportCandidatesCount": 5
+  },
+  ...
+]
+</code></pre></div></div>
+
+<h2 id="arrived-producer-and-consumer">Arrived Producer (and Consumer)</h2>
+<p>Arrived-producer foi feito com <em>Quarkus</em> e consome os dados do topic <em>arrivals</em>, produzidos pelo producer anterior, processando-os para depois produzir informação para dois topics diferentes: <em>arrived</em> e <em>events</em>.</p>
+
+<p>Em termos de processamento é utilizada a lógica de guardar sempre a última lista de voos recebida do topic <em>arrivals</em>, para quando consumir uma lista nova, poder comparar e verificar se há alguns voos novos ou se houve algum voo que desapareceu da lista.</p>
+
+<p>Estas listas são de facto objectos da classe <em>Flights</em>, obtidas através do método <em>gson.fromJson()</em> que recebe o <em>json</em> consumido.</p>
+
+<h3 id="arrived"><em>arrived</em></h3>
+<p>É produzido para o topic <em>arrived</em> quando se verifica que houve algum voo (classe <em>Flight</em>) que desapareceu da lista (classe <em>Flights</em> que contem uma lista de <em>Flight</em>).</p>
+
+<p>Assim, é produzida para o topic uma mensagem individual para cada <em>Flight</em> que se deteta que aterrou, utilizando o método <em>gson.toJson()</em>.</p>
+
+<p>Exemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "icao24": "48548c",
+    "firstSeen": 1558953893,
+    "estDepartureAirport": "EHAM",
+    "lastSeen": 1558957226,
+    "estArrivalAirport": "Stuttgart",
+    "callsign": "KLM1873",
+    "estDepartureAirportHorizDistance": 1217,
+    "estDepartureAirportVertDistance": 94,
+    "estArrivalAirportHorizDistance": 1086.0,
+    "estArrivalAirportVertDistance": 14.0,
+    "departureAirportCandidatesCount": 0,
+    "arrivalAirportCandidatesCount": 5
+}
+</code></pre></div></div>
+
+<h3 id="events"><em>events</em></h3>
+<p>É produzido para o topic <em>events</em> quando se verifica que apareceu ou desapareceu um voo da lista, com mensagens distintas para cada um.</p>
+
+<p>Exemplo de uma mensagem produzida quando aparece um novo voo na lista:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    New flight '48548c' approaching Stuttgart airport at 1086.0 meters.
+</code></pre></div></div>
+
+<p>Exemplo de uma mensagem produzida quando desaparece um voo da lista:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Flight with id '48548c' arrived in Stuttgart airport.
+</code></pre></div></div>
+
+<h2 id="environment-producer">Environment Producer</h2>
+
+<h3 id="environment"><em>environment</em></h3>
+<p>Environment-producer utiliza a API OpenWeatherMap, fazendo dezassete calls distintas e produzindo informação para o topic <em>environment</em>.</p>
+
+<p>Primeiramente fomos pesquisar os valores de latitude e longitude para os 17 aeroportos mais frequentados na Alemanha obtendo a seguinte tabela, sendo estes os códigos <em>ICAO</em> que também sobram da filtragem no flights-producer.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">ICAO</th>
+      <th style="text-align: center">LAT</th>
+      <th>LON</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">EDDB</td>
+      <td style="text-align: center">52.37</td>
+      <td>13.51</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDT</td>
+      <td style="text-align: center">52.55</td>
+      <td>13.28</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDW</td>
+      <td style="text-align: center">53.04</td>
+      <td>8.78</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDK</td>
+      <td style="text-align: center">50.85</td>
+      <td>7.13</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDLW</td>
+      <td style="text-align: center">51.51</td>
+      <td>7.61</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDC</td>
+      <td style="text-align: center">51.13</td>
+      <td>13.76</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDL</td>
+      <td style="text-align: center">51.28</td>
+      <td>6.76</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDF</td>
+      <td style="text-align: center">50.03</td>
+      <td>8.57</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDH</td>
+      <td style="text-align: center">53.62</td>
+      <td>9.98</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDV</td>
+      <td style="text-align: center">52.46</td>
+      <td>9.68</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDSB</td>
+      <td style="text-align: center">48.77</td>
+      <td>8.08</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDP</td>
+      <td style="text-align: center">51.42</td>
+      <td>12.23</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDM</td>
+      <td style="text-align: center">48.35</td>
+      <td>11.77</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDG</td>
+      <td style="text-align: center">52.13</td>
+      <td>7.68</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDN</td>
+      <td style="text-align: center">49.46</td>
+      <td>11.06</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">ETAR</td>
+      <td style="text-align: center">49.43</td>
+      <td>7.60</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">EDDS</td>
+      <td style="text-align: center">48.68</td>
+      <td>9.21</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Para obter o index de poluição para cada aeroporto realizamos a seguinte chamada, fornecendo a latitude e longitude previamente guardada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://api.openweathermap.org/data/2.5/air_pollution?lat="+lat[i]+"&amp;lon="+lon[i]+"&amp;appid="+apikey;
+</code></pre></div></div>
+
+<p>Exemplo de um resultado da chamada:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "coord": {
+    "lon": 13.51,
+    "lat": 52.37
+  },
+  "list": [
+    {
+      "main": {
+        "aqi": 1
+      },
+      "components": {
+        "co": 203.61,
+        "no": 0,
+        "no2": 10.2,
+        "o3": 52.93,
+        "so2": 3.93,
+        "pm2_5": 4.59,
+        "pm10": 4.96,
+        "nh3": 0.65
+      },
+      "dt": 1625022000
+    }
+  ]
+}
+</code></pre></div></div>
+
+<p>Este resultado é guardado na classe <em>ComponentsClass</em>, e depois é enviado como argumento para o construtor da classe <em>ComponentsByAirport</em> que também recebe o código <em>ICAO</em> e o nome do aeroporto.</p>
+
+<p>No fim de todas as chamadas, estes 17 objectos <em>ComponentsByAirport</em> são guardados numa lista de <em>ComponentsByAirport</em>, definida pela classe <em>ComponentsGermany</em>, que desta forma agrupa todos os dados de poluição de todos os aeroportos pretendidos.</p>
+
+<p>Assim, é produzida para o topic uma mensagem em formato <em>json</em> utilizando o método <em>gson.toJson()</em>.</p>
+
+<p>Exemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "airports":[
+        {
+            "airporticao":"EDDB",
+            "airportname":"Berlin-Schönefeld",
+            "airportcomponents":
+                {"coord":
+                    {
+                        "lon":13.519,
+                        "lat":52.3738
+                    },
+                    "list":[
+                        {
+                            "main":
+                            {
+                                "aqi":1
+                            },
+                            "components":
+                            {
+                                "co":203.61,
+                                "no":0.0,
+                                "no2":10.2,
+                                "o3":52.93,
+                                "so2":3.93,
+                                "pm10":4.96,
+                                "nh3":0.65
+                            },
+                            "dt":1625022000
+                        }
+                    ]
+                }
+        },
+        ...
+    ]
+}
+</code></pre></div></div>
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

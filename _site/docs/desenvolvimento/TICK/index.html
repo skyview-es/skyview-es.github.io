@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Métricas | SkyView</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Métricas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização. A instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose." />
+<meta property="og:description" content="Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização. A instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose." />
+<link rel="canonical" href="http://localhost:4000/docs/desenvolvimento/TICK/" />
+<meta property="og:url" content="http://localhost:4000/docs/desenvolvimento/TICK/" />
+<meta property="og:site_name" content="SkyView" />
+<script type="application/ld+json">
+{"@type":"Article","url":"http://localhost:4000/docs/desenvolvimento/TICK/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"headline":"Métricas","description":"Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização. A instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="SkyView" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/" style="display:table;">
+					<span style="display:table-cell;vertical-align:middle;" class="back-arrow icon"><svg fill="#000000" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+  
+  
+<g class="currentLayer" style=""><title>Layer 1</title><path d="M0 0h24v24H0z" fill="none" id="svg_1"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" id="svg_2" class="selected" fill="#ffffff" fill-opacity="1"/></g></svg></span>
+					<img style="display:table-cell;" src="/images/favicon.png" width="40" height="40" alt="SkyView logo">
+				</a>
+				SkyView
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href=""><b>Documentação</b></a>
+					</li>
+				</ul>
+
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/an%C3%A1lise/cenarios/">Análise</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/an%C3%A1lise/cenarios/">Cenários</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/arquitetura/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/TICK/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item current"><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/frontend/manual/">Frontend</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/frontend/manual/">Manual do Utilizador</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+
+				
+				
+				
+				
+				
+				
+				
+				
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Desenvolvimento</h2>
+				<h3>Métricas</h3>
+			</div>
+			<article class="content">
+				<p>Em termos da obtenção periódica e persistência centralizada de valores de métricas de estado atual e desempenho dos diversos componentes e micro-serviços foi utilizado a TICK stack, dada a sua abertura, expansibilidade e facilidade de integração e de utilização.
+A instanciação e interligação dos seus componentes constituintes (Telegraf, InfluxDB, Chronograf, e Kapacitor) é assegurada através do uso de Docker-Compose.</p>
+
+<p><img src="https://lh5.googleusercontent.com/FcW4kuGJcVRBmOFPyBmaIsLypBkmh2UAcqRTFp0IwNfj1nlHotmClBMoQPyge8ZvL-YGaHnlXxr6d_b64DHdOkHGaXvx4pLPAGIg14HGgYaSb-rV_1PgO6x63LRRGzdC3w" alt="Alt text" title="Title" /></p>
+
+<p>A recolha de métricas é efetuada periódicamente de cada um dos consumers desenvolvidos, através da integração nativa Quarkus Micrometer.
+Desta forma, são automaticamente incluídos diversos data points acerca do estado atual e desempenho da JVM, do módulo de integração com o Kafka (consumer e producer), e do módulo RESTEasy, bem como as métricas customizadas desenvolvidas pela equipa no próprio código fonte.</p>
+
+<p>Estas incluem contadores de número de pedidos REST recebidos, tamanho das listas de vôos/aeroportos recebidos dos tópicos Kafka, número de inserções no InfluxDB, número de eventos gerados, entre outros.</p>
+
+<p>A visualização do estado atual dos vários componentes do sistema at-a-glance é possibilitada por um dashboard Cronograf criado para o efeito, e que inclui um conjunto não exaustivo de métricas cruciais.</p>
+
+<p><img src="/images/posts/es_tick.png?raw=true" alt="Alt text" title="Title" /></p>
+
+<ul>
+  <li>System CPU Usage</li>
+  <li>System Load Average</li>
+  <li>System Memory Usage</li>
+  <li>Events generated per 10 seconds (‘events’ kafka topic)</li>
+  <li>InfluxDB write operations executed per 10 seconds</li>
+  <li>Kafka messages consumed per 10 seconds</li>
+  <li>Kafka messages produced per 10 seconds</li>
+  <li>/stream SSE requests per 10 seconds</li>
+  <li>/all REST requests per 10 seconds</li>
+  <li>OpenWeather API response list size</li>
+  <li>OpenFlight API response list size</li>
+</ul>
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

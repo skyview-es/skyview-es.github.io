@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Consumers | SkyView</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Consumers" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:" />
+<meta property="og:description" content="Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:" />
+<link rel="canonical" href="http://localhost:4000/docs/desenvolvimento/consumers/" />
+<meta property="og:url" content="http://localhost:4000/docs/desenvolvimento/consumers/" />
+<meta property="og:site_name" content="SkyView" />
+<script type="application/ld+json">
+{"@type":"Article","url":"http://localhost:4000/docs/desenvolvimento/consumers/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"headline":"Consumers","description":"Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="SkyView" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/" style="display:table;">
+					<span style="display:table-cell;vertical-align:middle;" class="back-arrow icon"><svg fill="#000000" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+  
+  
+<g class="currentLayer" style=""><title>Layer 1</title><path d="M0 0h24v24H0z" fill="none" id="svg_1"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" id="svg_2" class="selected" fill="#ffffff" fill-opacity="1"/></g></svg></span>
+					<img style="display:table-cell;" src="/images/favicon.png" width="40" height="40" alt="SkyView logo">
+				</a>
+				SkyView
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href=""><b>Documentação</b></a>
+					</li>
+				</ul>
+
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/an%C3%A1lise/cenarios/">Análise</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/an%C3%A1lise/cenarios/">Cenários</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/arquitetura/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/desenvolvimento/TICK/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/TICK/">Métricas</a></li>
+								
+									<li class="nav-item current"><a href="/docs/desenvolvimento/consumers/">Consumers</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/frontend/manual/">Frontend</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/frontend/manual/">Manual do Utilizador</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+
+				
+				
+				
+				
+				
+				
+				
+				
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Desenvolvimento</h2>
+				<h3>Consumers</h3>
+			</div>
+			<article class="content">
+				<p>Os módulos consumer constituem uma parte integral da arquitetura desenvolvida, visto que desempenham as seguintes funções:</p>
+
+<ul>
+  <li>Consumir dados provenientes dos tópicos Kafka populados pelos producers associados às APIs OpenSky e OpenWeather</li>
+  <li>Aplicar filtros, transformações, e outras operações aos mesmos</li>
+  <li>Ler e Escrever a informação relevante numa base de dados time-series InfluxDB (utilizando Flux)</li>
+  <li>Produzir dados processados e eventos para tópicos de Kafka</li>
+  <li>Servir atualizações em real-time para clientes de front-end através do uso de Server Sent Events (com interligação por Reactive Messaging)</li>
+  <li>Disponibilizar endpoints REST para obtenção de dados históricos em massa.</li>
+</ul>
+
+<p><img src="/images/posts/es_consumers.png?raw=true" alt="Alt text" title="Title" /></p>
+
+<h3 id="flights-consumer">Flights-Consumer</h3>
+
+<p>A sua função é consumir os dados do endpoint /states da OpenSky API que são disponibilizados no tópico Kakfa ‘flights’ pelo producer correspondente.
+Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
+Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao24’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.</p>
+
+<p>Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao24 ‘34310d’):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "time": 1625023000,
+  "states": [
+    {
+      "icao24": "34310d",
+      "callsign": "BCS3844 ",
+      "originCountry": "Spain",
+      "timePosition": "2021-06-30T04:16:39",
+      "lastContact": 1625022999,
+      "longitude": 12.2542,
+      "latitude": 51.4113,
+      "baroAltitude": 0,
+      "onGround": true,
+      "velocity": 3.86,
+      "trueTrack": 84.38,
+      "verticalRate": 0,
+      "sensors": "",
+      "geoAltitude": 0,
+      "squawk": "",
+      "spi": false,
+      "positionSource": 0
+    },
+    {
+      ...
+    }
+  ]
+}
+</code></pre></div></div>
+
+<h3 id="arrivals-consumer">Arrivals-Consumer</h3>
+
+<p>A sua função é consumir os dados do endpoint /flights da OpenSky API que são disponibilizados no tópico Kakfa ‘arrivals’ pelo producer correspondente.
+Estes enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados</p>
+
+<p>Exemplo de payload JSON retornada pelo endpoint SSE /stream:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "voos": [
+    {
+      "icao24": "3cce6f",
+      "firstSeen": 1560980170,
+      "estDepartureAirport": "EDDS",
+      "lastSeen": 1560981639,
+      "estArrivalAirport": "Stuttgart",
+      "callsign": "FCK211  ",
+      "estDepartureAirportHorizDistance": 353,
+      "estDepartureAirportVertDistance": 7,
+      "estArrivalAirportHorizDistance": 1051,
+      "estArrivalAirportVertDistance": 7,
+      "departureAirportCandidatesCount": 0,
+      "arrivalAirportCandidatesCount": 7
+    },
+    {
+      ...
+    }
+  ]
+}
+</code></pre></div></div>
+
+<h3 id="environment-consumer">Environment-Consumer</h3>
+
+<p>A sua função é consumir os dados da OpenWeather API que são disponibilizados no tópico Kakfa ‘environment’ pelo producer correspondente.
+Estes são persistidos no InfluxDB (utilizando o InfluxDBClient) e enviados como Server Sent Events para o frontend e quaisquer outros clientes SSE conectados
+Adicionalmente, os dados históricos são disponibilizados pelo endpoint REST /all, que recebe o Query Parameter ‘icao’ como filtro e interage com o InfluxDB utilizando Flux para obter os dados.</p>
+
+<p>Exemplo de payload JSON retornada pelo endpoint /all (com filtro por, neste caso, o icao ‘34310d’):</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[
+  {
+    "name": "Berlin-Schönefeld",
+    "icao": "EDDB",
+    "time": {
+      "seconds": 1625025577,
+      "nanos": 55186000
+    },
+    "latitude": 52.3738,
+    "longitude": 13.519,
+    "aqi": 1,
+    "co": 211.95,
+    "no": 0.01,
+    "no2": 12.51,
+    "o3": 49.35,
+    "so2": 4.77,
+    "pm10": 5.2,
+    "nh3": 0.74
+  },
+  {
+    ... 
+  }
+]
+</code></pre></div></div>
+
+<h3 id="arrived-consumer">Arrived-Consumer</h3>
+
+<p>A secção ‘Producers’ contém os detalhes sobre a função desempenhada por este componente.</p>
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

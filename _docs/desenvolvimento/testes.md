@@ -5,6 +5,6 @@ order: 2
 type: 2
 ---
 
-## Esquema de Estratégia de Testes - Milestone 3
+## Esquema de Estratégia de Testes
 
 ![Alt text](/images/posts/es_tests.png?raw=true "Title")
