@@ -1,7 +1,7 @@
 ---
 title: Métricas
 category: Operações
-order: 1
+order: 4
 type: 4
 ---
 

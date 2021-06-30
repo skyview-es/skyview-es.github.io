@@ -1,6 +1,6 @@
 ---
 title: Deployment
-category: Especificação
+category: Operações
 order: 2
 type: 2
 published: true

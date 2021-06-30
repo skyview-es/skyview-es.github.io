@@ -1,14 +1,10 @@
 ---
-title: Monitorização
-category: Especificação
-order: 3
+title: Logging agregado
+category: Operações
+order: 5
 type: 2
 published: true
 ---
-
-## Métricas
-
-## Logger agregado
 
 ### Overview
 
