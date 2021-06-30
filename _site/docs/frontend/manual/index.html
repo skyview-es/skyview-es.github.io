@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Manual do Utilizador | SkyView</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Manual do Utilizador" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Destinada aos clientes do SkyView, a plataforma desenvolvida expõe alguns dos endpoints disponibilizados pela API, criando assim funcionalidades para os destinatários. Nesta, qualquer utilizador da mesma pode visualizar os voos que sobrevoam a Alemanha em tempo real, o índice de qualidade do ar nos aeroportos, entre outros." />
+<meta property="og:description" content="Destinada aos clientes do SkyView, a plataforma desenvolvida expõe alguns dos endpoints disponibilizados pela API, criando assim funcionalidades para os destinatários. Nesta, qualquer utilizador da mesma pode visualizar os voos que sobrevoam a Alemanha em tempo real, o índice de qualidade do ar nos aeroportos, entre outros." />
+<link rel="canonical" href="http://localhost:4000/docs/frontend/manual/" />
+<meta property="og:url" content="http://localhost:4000/docs/frontend/manual/" />
+<meta property="og:site_name" content="SkyView" />
+<script type="application/ld+json">
+{"@type":"Article","url":"http://localhost:4000/docs/frontend/manual/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"headline":"Manual do Utilizador","description":"Destinada aos clientes do SkyView, a plataforma desenvolvida expõe alguns dos endpoints disponibilizados pela API, criando assim funcionalidades para os destinatários. Nesta, qualquer utilizador da mesma pode visualizar os voos que sobrevoam a Alemanha em tempo real, o índice de qualidade do ar nos aeroportos, entre outros.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="SkyView" />
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic|Open+Sans:400,400italic,600,600italic,700,700italic|Inconsolata:400,700">
+		<link rel="stylesheet" href="/css/main.css">
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/images/favicon.png">
+
+		
+	</head>
+
+	<body>
+		<header>
+			<h1>
+				<a href="/" style="display:table;">
+					<span style="display:table-cell;vertical-align:middle;" class="back-arrow icon"><svg fill="#000000" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
+  
+  
+<g class="currentLayer" style=""><title>Layer 1</title><path d="M0 0h24v24H0z" fill="none" id="svg_1"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" id="svg_2" class="selected" fill="#ffffff" fill-opacity="1"/></g></svg></span>
+					<img style="display:table-cell;" src="/images/favicon.png" width="40" height="40" alt="SkyView logo">
+				</a>
+				SkyView
+				<button type="button" class="open-nav" id="open-nav"></button>
+			</h1>
+
+			<form action="/search/" method="get">
+				<input type="text" name="q" id="search-input" placeholder="Search" autofocus>
+				<input type="submit" value="Search" style="display: none;">
+			</form>
+
+			<nav class="full-navigation">
+				<ul>
+					<li class="nav-item top-level ">
+						
+						<a href=""><b>Documentação</b></a>
+					</li>
+				</ul>
+
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/an%C3%A1lise/cenarios/">Análise</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/an%C3%A1lise/cenarios/">Cenários</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/desenvolvimento/arquitetura/">Desenvolvimento</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/arquitetura/">Arquitetura</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/producers/">Producers</a></li>
+								
+									<li class="nav-item "><a href="/docs/desenvolvimento/testes/">Testes</a></li>
+								
+							</ul>
+						</li>
+					
+						<li class="nav-item top-level ">
+							
+							<a href="/docs/especificacao/jenkins/">Especificação</a>
+							<ul>
+								
+									<li class="nav-item "><a href="/docs/especificacao/jenkins/">Jenkins</a></li>
+								
+									<li class="nav-item "><a href="/docs/especificacao/deployment/">Deployment</a></li>
+								
+									<li class="nav-item "><a href="/docs/especificacao/monitoring/">Monitorização</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+				
+				<ul>
+					
+					
+						<li class="nav-item top-level current">
+							
+							<a href="/docs/frontend/manual/">Frontend</a>
+							<ul>
+								
+									<li class="nav-item current"><a href="/docs/frontend/manual/">Manual do Utilizador</a></li>
+								
+							</ul>
+						</li>
+					
+				</ul>
+				
+				
+
+				
+				
+				
+				
+				
+				
+				
+				
+			</nav>
+		</header>
+
+		<section class="main">
+			<div class="page-header">
+				<h2>Frontend</h2>
+				<h3>Manual do Utilizador</h3>
+			</div>
+			<article class="content">
+				<p>Destinada aos clientes do SkyView, a plataforma desenvolvida expõe alguns dos <em>endpoints</em> disponibilizados pela API, criando assim funcionalidades para os destinatários. Nesta, qualquer utilizador da mesma pode visualizar os voos que sobrevoam a Alemanha em tempo real, o índice de qualidade do ar nos aeroportos, entre outros.</p>
+
+<h2 id="maps">Maps</h2>
+
+<p>Na página denominada “Maps”, é possível visualizar um mapa-múndi centrado na Alemanha. Em cima deste, existe um pequeno <em>switch</em> que permite ao utilizador escolher um dos dois modos de visualização possíveis nesta página, com as nomenclaturas “Environment’s Map” e “Flights’ Map” à sua esquerda e direita, respetivamente.</p>
+
+<p><img src="/images/frontend/worldmap.png" alt="Mapa-Múndi" width="750" height="500" class="center-image" />
+<em>Exemplo da página Maps na plataforma.</em></p>
+
+<h3 id="flights-map">Flights’ Map</h3>
+
+<p>Por omissão, o modo exibido será o dos voos, com o interruptor a ser preenchido por um tom de azul. Neste, o cliente pode acompanhar os aviões que sobrevoam a Alemanha em tempo real, com um pequeno ícone de um avião azulado a simbolizar cada voo. Ao longo do tempo, o ícone deslocar-se-á sobre o território alemão, replicando assim a trajetória do voo enquanto este estiver sobre o país.</p>
+
+<p><img src="/images/frontend/flightsmap.png" alt="Flights Map" width="750" height="500" class="center-image" />
+<em>Exemplo do mapa no modo “Flights’ Map.</em></p>
+
+<p>Clicando com o botão do lado esquerdo do rato sobre qualquer avião apresentado no mapa, uma nova secção será exibida. Na parte superior desta, o código ICAO 24 correspondente ao avião selecionado será apresentado, bem como dois gráficos.</p>
+
+<p>São estes os gráficos de velocidade (m/s) e de altitude (metros). Tal como o nome indica, o primeiro disponibiliza algumas das velocidades do avião registadas pela aplicação desde que teve conhecimento do mesmo. Ordenando estes valores cronologicamente, um gráfico fiel ao comportamento do avião é estabelecido. O mesmo se passa no segundo caso, registando as diferentes altitudes a que se encontrava o voo ao longo do tempo.</p>
+
+<p><img src="/images/frontend/flightspopup.png" alt="Flights Popup" width="750" height="500" class="center-image" />
+<em>Exemplo do que é apresentado ao clicar num avião.</em></p>
+
+<h3 id="environments-map">Environment’s Map</h3>
+
+<p>Se o utilizador clicar com o botão esquerdo do rato sobre o <em>switch</em>, este alterará o modo em exibição para a vista do ambiente. Esta mudança será acompanhada por uma troca de cor no <em>switch</em> de azul para um tom esverdeado. Os ícones representativos de cada voo serão removidos, dando lugar a outro conjunto de símbolos representando os aeroportos alemães.</p>
+
+<p><img src="/images/frontend/environmentsmap.png" alt="Environments Map" width="750" height="500" class="center-image" />
+<em>Exemplo do mapa no modo “Environment’s Map.</em></p>
+
+<p>Clicando com o botão do lado esquerdo do rato sobre qualquer ícone apresentado no mapa, uma nova secção será exibida. Nesta, é possível visualizar três parâmetros relativos ao aeroporto selecionado, sendo estes:</p>
+
+<ol>
+  <li>Airport</li>
+  <li>ICAO</li>
+  <li>Air Quality Index</li>
+</ol>
+
+<p>O primeiro item da lista, apresenta o nome do aeroporto em causa. Já o código aeroportuário ICAO, é utilizado para designar o aeroporto internacionalmente, fazendo parte de um acordo que conta com 180 países membros. O terceiro e último elemento, informa o cliente do índice de qualidade do ar, naquele momento, no aeródromo.</p>
+
+<p><img src="/images/frontend/environmentspopup.png" alt="Environments Popup" width="750" height="500" class="center-image" />
+<em>Exemplo do que é apresentado ao clicar num aeroporto.</em></p>
+
+<h2 id="table">Table</h2>
+
+<p>Na página denominada “Table”, é possível visualizar uma tabela denominada “Incoming Airplanes”. Esta tabela será preenchida pelos voos, com destino a um aeroporto alemão, prestes a aterrar.</p>
+
+<p>A tabela está então dividia em quatro colunas:</p>
+
+<ol>
+  <li>Icao24</li>
+  <li>Avião - Callsign</li>
+  <li>Aeroporto de chegada</li>
+  <li>Distância</li>
+</ol>
+
+<p>Tal como referido na secção <a href="#flights-map">Flight’s Map</a>, o código ICAO 24 representa o avião em si, sendo que o <em>Callsign</em> é também um identificador único, cujo prefixo corresponde ao seu país de origem. Os últimos dois campos são, tal como indicam, o nome do aeroporto alemão em que o avião está prestes a aterrar e a distância a que se encontra do mesmo.</p>
+
+<p><img src="/images/frontend/table.png" alt="Tabela" width="750" height="500" class="center-image" />
+<em>Exemplo da página Table na plataforma.</em></p>
+
+			</article>
+		</section>
+
+		<script>
+			document.getElementById("open-nav").addEventListener("click", function () {
+				document.body.classList.toggle("nav-open");
+			});
+		</script>
+	</body>
+</html>

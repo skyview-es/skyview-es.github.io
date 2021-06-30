@@ -6,17 +6,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Página Inexistente | SkyView</title>
+<title>Deployment | SkyView</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Página Inexistente" />
+<meta property="og:title" content="Deployment" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Projeto SkyView - P30 - ES 2021" />
-<meta property="og:description" content="Projeto SkyView - P30 - ES 2021" />
-<link rel="canonical" href="http://localhost:4000/404.html" />
-<meta property="og:url" content="http://localhost:4000/404.html" />
+<meta name="description" content="Arquitetura geral" />
+<meta property="og:description" content="Arquitetura geral" />
+<link rel="canonical" href="http://localhost:4000/docs/especificacao/deployment/" />
+<meta property="og:url" content="http://localhost:4000/docs/especificacao/deployment/" />
 <meta property="og:site_name" content="SkyView" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"http://localhost:4000/404.html","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"headline":"Página Inexistente","description":"Projeto SkyView - P30 - ES 2021","@context":"https://schema.org"}</script>
+{"@type":"Article","url":"http://localhost:4000/docs/especificacao/deployment/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/images/favicon.png"}},"headline":"Deployment","description":"Arquitetura geral","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 		<link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="SkyView" />
@@ -93,14 +93,14 @@
 							</ul>
 						</li>
 					
-						<li class="nav-item top-level ">
+						<li class="nav-item top-level current">
 							
 							<a href="/docs/especificacao/jenkins/">Especificação</a>
 							<ul>
 								
 									<li class="nav-item "><a href="/docs/especificacao/jenkins/">Jenkins</a></li>
 								
-									<li class="nav-item "><a href="/docs/especificacao/deployment/">Deployment</a></li>
+									<li class="nav-item current"><a href="/docs/especificacao/deployment/">Deployment</a></li>
 								
 									<li class="nav-item "><a href="/docs/especificacao/monitoring/">Monitorização</a></li>
 								
@@ -141,12 +141,28 @@
 
 		<section class="main">
 			<div class="page-header">
-				<h2>SkyView</h2>
-				<h3>Página Inexistente</h3>
+				<h2>Especificação</h2>
+				<h3>Deployment</h3>
 			</div>
 			<article class="content">
-				<h2 id="erro-404">Erro 404</h2>
-<p>A página que procura não exite!</p>
+				<h2 id="arquitetura-geral">Arquitetura geral</h2>
+
+<p>O ambiente de execução e instalação integrado neste projeto assume <strong>um padrão de micro-serviços envolvidos em containers</strong>, com recurso à ferramenta <strong>Docker</strong>, e ainda necessita de suporte para a ferramenta opcional <strong>docker-compose</strong>, acedidas por <strong>modo não-privilegiado</strong>.</p>
+
+<p>A arquitetura é explicada pelo diagrama abaixo. A rede de containers para o efeito é denominada <strong>subnet-proj</strong>, e corresponde à gama de endereços <strong>172.29.0.0/24</strong>. Todos os containers deste projeto situar-se-ão nesta rede Docker.</p>
+
+<p><img src="/images/spec/es_docker_arch.png?raw=true" alt="docker-comp-deployment-arch" title="Docker deployment diagram" /></p>
+
+<p>É utilizado um ficheiro <strong>docker-compose.yaml</strong> por forma a realizar o <em>setup</em> completo de todos os serviços. A arquitetura de instalação providenciada explica o próprio modelo de instalação que segue entre módulos.</p>
+
+<h2 id="outros-requisitos">Outros requisitos</h2>
+
+<p>Em termos de requisitos especiais, a máquina remota deve estar configurada com o ficheiro-parâmetro de sistema Linux <strong>vm.max_map_count</strong> com o valor mínimo de 262144, devido a ser um <strong>requerimento do Elasticsearch</strong> na versão 7.13.x .</p>
+
+<h2 id="localização">Localização</h2>
+
+<p>De notar que <strong>todos os serviços do projeto serão instalados na mesma máquina, incluindo bases de dados, brokers e ferramentas de monitorização, logging e visualização</strong>. Isto significa que, no âmbito deste projeto, <strong>não são utilizadas as máquinas virtuais fornecidas</strong> para instalação do produto e acesso aos recursos de dados (partilhados) para as dependências do software desenvolvido – isto deve-se ao facto de não ter sido possível fazer a instalação da <em>playground VM</em> disponibilizada para o efeito. Como esta ficou sem recursos disponíveis para todos os projetos rapidamente, o mesmo tipo de problema poderia ter acontecido com a <em>runtime VM</em>, então optou-se por um ambiente gerido pelo grupo, na qual estivesse acedido pela Web (<strong>skyview.rrosmaninho.com</strong>).</p>
+
 
 			</article>
 		</section>
