@@ -5,7 +5,7 @@ order: 2
 type: 3
 ---
 
-Nesta página será feito um resumo do trabalho efetuado na plataforma desenvolvida, bem como os objetivos iniciais que não foram atingidos a tempo.
+Nesta página será feito um resumo do trabalho efetuado na plataforma desenvolvida para o cliente.
 
 Tal como é possível visualizar no gráfico referente à Arquitetura, esta *web app* resulta de um conjunto de páginas concebidas utilizando a *framework* [Django](https://www.djangoproject.com).
 
@@ -19,22 +19,12 @@ A lista de voos que sobrevoam a Alemanha em tempo real é obtida através do *en
 
 Os aviões exibidos são colocados nas coordenadas recebidas, sendo que ao clicar sobre um dos ícones, um segundo *endpoint* é chamado: /flights/all?icao24=<id>. Assim, é possível obter-se com maior detalhe informações sobre um voo em específico, sendo este filtrado pelo seu código ICAO 24. Aqui, a altitude geográfica, velocidade e *timestamp* associada a estes é obtida, providenciando assim todos os constituintes necessários para elaborar os gráficos que o cliente vê quando clica sobre o ícone.
 
-Neste modo de visualização, não foi possível realizar a tempo um efeito visual que replicasse a trajetória até então percorrida pelo avião.
-
 ### Environment's Map
 
 Os dados referentes ao índice de qualidade do ar nos aeroportos alemães são obtidos através do *endpoint*: /environment/stream. O código ICAO do aeródromo, o seu nome, localização em coordenadas e índice de qualidade do ar são então retiradas deste *endpoint*.
 
 Os aeroportos exibidos são colocados nas coordenadas recebidas, sendo que ao clicar sobre um dos ícones, os restantes parâmetros tornam-se visíveis. Assim, é possível obter-se com maior detalhe informações sobre um aeroporto em específico quando o cliente clica com o botão do lado esquerdo sobre o ícone.
 
-Neste modo de visualização, não foi possível realizar a tempo um efeito visual que replicasse a trajetória até então percorrida pelo avião.
-
 ## Table
 
 Na página denominada "Table", uma tabela foi constituída pela informação gerada no *endpoint*: /arrivals/stream. O código ICAO 24 do voo, o *callsign* do avião, o seu aeroporto de destino bem como a distância a que se encontra do mesmo são então retirados deste *endpoint*.
-
-Neste modo de visualização, por lapso da equipa, não foi adicionada a funcionalidade de interligar os campos da tabela com as visualizações nos mapas.
-
-## Outros
-
-Além das funcionalidades mencionadas acima, o grupo tinha como ambição a elaboração de uma página de estatísticas mais completa, para além dos gráficos já presentes. Era ainda uma das expectativas iniciais permitir ao utilizador subscrever uma panóplia de eventos, o que não se tornou possível.
