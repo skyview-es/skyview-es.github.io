@@ -7,7 +7,7 @@ type: 3
 
 Nesta página será feito um resumo do trabalho efetuado na plataforma desenvolvida para o cliente.
 
-Tal como é possível visualizar no gráfico referente à Arquitetura, esta *web app* resulta de um conjunto de páginas concebidas utilizando a *framework* [Django](https://www.djangoproject.com).
+Tal como é possível visualizar no gráfico referente à Arquitetura, esta *web app* resulta de um conjunto de páginas concebidas utilizando a *framework* [React](https://reactjs.org).
 
 ## Maps
 
