@@ -17,4 +17,4 @@ A vertente dos eventos ficou aquém nesta secção, não sendo implementada a fu
 
 Embora exista trabalho que ficou por realizar, o grupo sentiu que conseguiu conjugar corretamente as funcionalidades implementadas, dando assim um uso real e com nexo à aplicação. 
 
-A *framework* [Django](https://www.djangoproject.com) com a qual a equipa trabalhou, foi uma ferramenta nova para vários dos elementos, sendo que a sua curva de aprendizagem não se mostrou tão trivial quanto o esperado. Não obstante, todas as experiências com a *framework* mostraram-se uma mais valia na aprendizagem do grupo, dando garantias aos integrantes da equipa que na próxima vez que usarem a mesma, todo o processo será agilizado.
+As frameworks Quarkus e React com as quais a equipa trabalhou, foram ferramentas novas para vários dos elementos, sendo que a sua curva de aprendizagem não se mostrou tão trivial quanto o esperado. Não obstante, todas as experiências com as *frameworks* mostraram-se uma mais valia na aprendizagem do grupo, dando garantias aos integrantes da equipa que na próxima vez que usarem as mesmas, todo o processo será agilizado.
